@@ -9,6 +9,7 @@ import BotChat from "../chatbot/chat/BotChat";
 import UserChat from "../chatbot/chat/UserChat";
 import { useGetChatMessages } from "../../hooks/useChat";
 import ChatContentsContainer from "../chatbot/ChatContentsContainer";
+import ChatbotInput from "../chatbot/ChatbotInput";
 
 interface ChatbotModalProps {
   title: string;
@@ -51,12 +52,7 @@ export default function ChatbotModal({ title }: ChatbotModalProps) {
             <BotChat text="죄송해요! 서버가 원활하지 않아요! 다시 시도해주세요!"></BotChat>
           )}
         </ChatContentsContainer>
-        <input
-          type="text"
-          value={userInputValue}
-          onChange={(e) => setUserInputValue(e.target.value)}
-          onKeyPress={handleUserInput}
-        />
+        <ChatbotInput />
       </ChatbotModalContentContainer>
     </ChatbotModalContainer>
   );
