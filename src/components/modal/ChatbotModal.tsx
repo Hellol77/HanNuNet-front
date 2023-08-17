@@ -23,10 +23,8 @@ export interface ChatData {
 export default function ChatbotModal({ title }: ChatbotModalProps) {
   const [clicked, setClicked] = useRecoilState<boolean>(chatBotClicked);
   const [userInputValue, setUserInputValue] = useState<string>("");
-  const { handleUserInput, isLoading, isError, messages } = useGetChatMessages(
-    userInputValue,
-    setUserInputValue
-  );
+  const { handleUserSend, handleUserInput, isLoading, isError, messages } =
+    useGetChatMessages(userInputValue, setUserInputValue);
 
   const useMemoMessage = useMemo(() => {
     return messages.map(({ type, message }: ChatData, index: number) =>
@@ -52,7 +50,14 @@ export default function ChatbotModal({ title }: ChatbotModalProps) {
             <BotChat text="죄송해요! 서버가 원활하지 않아요! 다시 시도해주세요!"></BotChat>
           )}
         </ChatContentsContainer>
-        <ChatbotInput />
+        <ChatbotInput
+          userInputValue={userInputValue}
+          setUserInputValue={setUserInputValue}
+          handleUserInput={handleUserInput}
+          placeholder="메세지를 입력해주세요."
+          isloading={isLoading}
+          handleUserSend={handleUserSend}
+        />
       </ChatbotModalContentContainer>
     </ChatbotModalContainer>
   );

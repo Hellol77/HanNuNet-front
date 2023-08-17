@@ -39,19 +39,24 @@ export function useGetChatMessages(
     userMessages,
     assistantMessages
   );
+  //if문 함수화
+  const handleUserSend = () => {
+    setUserMessages((prev) => [...prev, userInputValue]);
+    setUserInputValue("");
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: "user", message: userInputValue },
+    ]);
+  };
   const handleUserInput = async (
     event: React.KeyboardEvent<HTMLInputElement>
   ) => {
     if (event.key === "Enter") {
       event.preventDefault();
-      setUserMessages((prev) => [...prev, userInputValue]);
-      setUserInputValue("");
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        { type: "user", message: userInputValue },
-      ]);
+      handleUserSend();
+
       try {
-        // useChatBot 훅에서 반환한 mutateAsync 함수를 사용하여 데이터를 요청하고 처리합니다.
+        // useChatBot 훅에서 반환handleUserSend한 mutateAsync 함수를 사용하여 데이터를 요청하고 처리합니다.
         const response = await mutateAsync();
         setAssistantMessages((prev) => [...prev, response.assistant]);
         setMessages((prevMessage) => [
@@ -64,5 +69,5 @@ export function useGetChatMessages(
       }
     }
   };
-  return { handleUserInput, isLoading, isError, messages };
+  return { handleUserSend, handleUserInput, isLoading, isError, messages };
 }
