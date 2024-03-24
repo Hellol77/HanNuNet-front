@@ -8,7 +8,7 @@
 ## 배포 
    - frontend : cloudflare page
    - backend : PythonAnywhere
-   - chatbot : AWS Amplify
+   - chatbot : AWS Lambda
 
 ## Skills
 - frontend : react, typescript, reactquery
